@@ -1,0 +1,7 @@
+#Volume up
+"pactl -- set-sink-volume 0 +5%"
+b:9+Release
+
+#Volume down
+"pactl -- set-sink-volume 0 -5%"
+b:8+Release
