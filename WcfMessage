@@ -1,0 +1,116 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.ServiceModel.Description;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.XPath;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            TypedMessageConverter converter = TypedMessageConverter.Create(
+                typeof(Person),
+                //"http://schemas.cyclone.com/2011/03/services/Service/GetData",
+                //"http://schemas.cyclone.com/2011/03/data",
+                "","",
+                new DataContractFormatAttribute() { Style = OperationFormatStyle.Rpc });
+
+            Person person = new Person
+            {
+                FirstName = "Daro",
+                LastName = "The Greate",
+                Funny = new Funny()
+                {
+                    Costam1 = "Daro1",
+                    Costam2 = "Daro2"
+                }
+            };
+            Message message = converter.ToMessage(person, MessageVersion.Soap12);
+            Person pers = (Person)converter.FromMessage(message);
+            string soap = message.ToString();
+
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(soap);
+            XmlElement e = doc.DocumentElement;
+            e.Prefix = "soap";
+            DisplayNodes(doc.DocumentElement);
+
+
+
+            var settings = new XmlWriterSettings();
+            settings.OmitXmlDeclaration = true;
+            settings.Indent = true;
+            settings.NewLineOnAttributes = true;
+
+
+            using (var stringWriter = new StringWriter())
+            using (var xmlTextWriter = XmlWriter.Create(stringWriter, settings))
+            {
+                doc.WriteTo(xmlTextWriter);
+                xmlTextWriter.Flush();
+                string sp = stringWriter.GetStringBuilder().ToString();
+            }
+
+            //string messageStr = File.ReadAllText(@"C:\Test\funny.txt");
+            //byte[] bytes = Encoding.UTF8.GetBytes(messageStr);
+            //var reader = XmlDictionaryReader.CreateTextReader(bytes, XmlDictionaryReaderQuotas.Max);
+            //var message = Message.CreateMessage(reader, int.MaxValue, MessageVersion.Soap12);
+
+            //Person pers = (Person)converter.FromMessage(message);
+            //string soap = message.ToString();
+
+
+            Console.ReadKey();
+
+        }
+
+
+        private static void DisplayNodes(XmlNode node)
+        {
+            //Print the node type, node name and node value of the node
+            if (node.NodeType == XmlNodeType.Text)
+            {
+                if (node.Prefix == "s")
+                    node.Prefix = "soap";
+                //Console.WriteLine("Type = [" + node.NodeType + "] Value = " + node.Value);
+            }
+            else
+            {
+                if (node.Prefix == "s")
+                    node.Prefix = "soap";
+                //Console.WriteLine("Type = [" + node.NodeType + "] Name = " + node.Name);
+            }
+
+            //Print attributes of the node
+            if (node.Attributes != null)
+            {
+                XmlAttributeCollection attrs = node.Attributes;
+                foreach (XmlAttribute attr in attrs)
+                {
+                    if (attr.Prefix == "s")
+                        attr.Prefix = "soap";
+
+                    Console.WriteLine("Attribute Name = " + attr.Name + "; Attribute Value = " + attr.Value);
+                }
+            }
+
+            //Print individual children of the node, gets only direct children of the node
+            XmlNodeList children = node.ChildNodes;
+            foreach (XmlNode child in children)
+            {
+                DisplayNodes(child);
+            }
+        }
+
+    }
+}
