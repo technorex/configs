@@ -1,3 +1,33 @@
-<layout type="log4net.Layout.PatternLayout">
-        <param name="ConversionPattern" value="%-5p%d{ yyyy-MM-dd HH:mm:ss} – [%thread] %m method:%method %n stacktrace:%stacktrace{5} %n type:%type %n line: %line %n" />
-</layout>
+ [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config")]
+ 
+ protected ILog Logger
+        {
+            get { return LogManager.GetLogger(GetType()); }
+        }
+        
+or
+
+ private static readonly log4net.ILog Log =
+            log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+<log4net>
+  <root>
+    <level value="ALL" />
+    <appender-ref ref="LossyConsoleAppender" />
+  </root>
+  <appender name="console" type="log4net.Appender.ConsoleAppender">
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%-5p%d{ yyyy-MM-dd HH:mm:ss} – [%thread] %m method:%method %n stacktrace:%stacktrace{5} %n type:%type %n line: %line %n" />
+    </layout>
+  </appender>
+
+  <appender name="LossyConsoleAppender" type="log4net.Appender.BufferingForwardingAppender">
+    <bufferSize value="20" />
+    <lossy value="true"/>
+    <evaluator type="log4net.Core.LevelEvaluator">
+      <threshold value="ERROR" />
+    </evaluator>
+    <appender-ref ref="console" />
+  </appender>
+ 
+</log4net>
