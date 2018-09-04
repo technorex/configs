@@ -1,0 +1,14 @@
+ var kernel = new StandardKernel();
+ kernel.Load(Assembly.GetExecutingAssembly());
+ 
+ 
+ public class Bindings : NinjectModule
+{
+    public override void Load()
+    {
+         Kernel.Bind<ITestManager>()
+                .To<TestManager>()
+                .InTransientScope()
+                .WithConstructorArgument("");
+    }
+}
