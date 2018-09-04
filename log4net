@@ -1,0 +1,3 @@
+<layout type="log4net.Layout.PatternLayout">
+        <param name="ConversionPattern" value="%-5p%d{ yyyy-MM-dd HH:mm:ss} – [%thread] %m method:%method %n stacktrace:%stacktrace{5} %n type:%type %n line: %line %n" />
+</layout>
