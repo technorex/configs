@@ -1,5 +1,4 @@
 #!/bin/bash
-
 sleep_t=1
 set_led="./set_led"
 
