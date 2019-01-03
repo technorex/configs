@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sleep_t=1
-set_led="./set_led"
+set_led="../bin/set_led"
 
 eval $set_led "0000"
 sleep $sleep_t
