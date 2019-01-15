@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd ~/vicom/bin
+
 sleep_t=1
 set_led="../bin/set_led"
 
