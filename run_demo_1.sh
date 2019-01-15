@@ -2,7 +2,7 @@
 
 cd ~/vicom/bin
 
-sleep_t=1
+sleep_t=2
 set_led="../sh/set_led.sh"
 
 eval $set_led "0000"
