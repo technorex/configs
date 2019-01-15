@@ -5,56 +5,19 @@ cd ~/vicom/bin
 sleep_t=2
 set_led="../sh/set_led.sh"
 
-eval $set_led "0000"
+eval $set_led "2000"
 sleep $sleep_t
-eval $set_led "0110"
+eval $set_led "2200"
 sleep $sleep_t
-eval $set_led "1001"
+eval $set_led "2220"
 sleep $sleep_t
-eval $set_led "0220"
+eval $set_led "2222"
 sleep $sleep_t
-eval $set_led "2002"
-sleep $sleep_t
-eval $set_led "0330"
-sleep $sleep_t
-eval $set_led "3003"
 
+eval $set_led "0222"
 sleep $sleep_t
-eval $set_led "0000"
+eval $set_led "0022"
 sleep $sleep_t
-eval $set_led "0220"
-sleep $sleep_t
-eval $set_led "2002"
-sleep $sleep_t
-eval $set_led "2112"
-sleep $sleep_t
-eval $set_led "1212"
-sleep $sleep_t
-eval $set_led "2121"
-sleep $sleep_t
-eval $set_led "1212"
-sleep $sleep_t
-eval $set_led "2121"
-
-sleep $sleep_t
-eval $set_led "2123"
-sleep $sleep_t
-eval $set_led "1233"
-sleep $sleep_t
-eval $set_led "1333"
-sleep $sleep_t
-eval $set_led "3333"
-sleep $sleep_t
-eval $set_led "3331"
-sleep $sleep_t
-eval $set_led "3311"
-sleep $sleep_t
-eval $set_led "3111"
-sleep $sleep_t
-eval $set_led "1111"
-sleep $sleep_t
-eval $set_led "0000"
-sleep $sleep_t
-eval $set_led "1111"
+eval $set_led "0002"
 sleep $sleep_t
 eval $set_led "0000"
